@@ -2,14 +2,14 @@ from django.db import models
 
 # Create your models here.
 
-class catgory(models.MOdel):
-    title = models.CharField(max_lengt=225)
+class Category(models.Model):
+    title = models.CharField(max_length=225)
 
     class meta:
         ordering = ('title')
         verbose_name_plural = 'catefories'
 
-    def _str_(self):
+    def __str__(self):
         return self.title
     
 class Post(models.Model):
@@ -22,7 +22,7 @@ class Post(models.Model):
         (DRAFT, 'Draft')
     }
 
-    category = models.ForeignKey(category, related_name='post', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='post', on_delete=models.CASCADE)
     tile = models.CharField(max_length=225)
     intro = models.TextField()
     body = models.TextField()
@@ -33,7 +33,7 @@ class Post(models.Model):
     def __str__(self):
         return self.tile
     
-class comment(models.Model):
+class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     name = models.CharField(max_length=225)
     email = models.EmailField()
